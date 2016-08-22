@@ -1,6 +1,7 @@
 ﻿using System;
 using ProjectEuler.Problems;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace ProjectEuler.Tests
 {
@@ -18,16 +19,98 @@ namespace ProjectEuler.Tests
         [TestInitialize]
         public void TestInit()
         {
-            p2 = new Problem1();
+            p2 = new Problem2();
+        }
+
+        [TestMethod]
+        public void GetFibonacciSequence()
+        {
+            // 1,2,3,5,8,13,21,34,55,89,144
+            int[] expected = new int[] { 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144 };
+            int[] actual = p2.GetFibonacciSequence(expected.Length);
+
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.AreEqual(expected[i], actual[i], "Values not equal at index " + i);
+            }
+        }
+
+        [TestMethod]
+        public void GetFibonacciSequenceLimitValues()
+        {
+            int[] expected = new int[] { 1, 2, 3, 5, 8, 13, 21, 34 };//, 55, 89, 144 };
+            int[] actual = p2.GetFibonacciSequence(11,34);
+
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.AreEqual(expected[i], actual[i], "Values not equal at index " + i);
+            }
+        }
+
+        [TestMethod]
+        public void FindSumOfZeroSequence()
+        {
+            int expected = 0;
+            int actual = p2.FindSum(0);
+
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void FindingSumOf2()
         {
             int expected = 2;
-            long actual = p2.FindSum(10);
+            int actual = p2.FindSum(2);
 
             Assert.AreEqual(expected, actual);
         }
+
+        
+
+        [TestMethod]
+        public void FindSumOfForthSequence()
+        {
+            // 1,2,3,5,8,13
+            int expected = 2 + 8;
+            int actual = p2.FindSum(5);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void FindSumOfTenthSequence()
+        {
+            // [1,2,3,5,8,13,21,34,55,89] ,144
+            int expected = 2 + 8 + 34;
+            int actual = p2.FindSum(10);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void FindSumOfFibonacciSequenceValuesDoesNotExceedFourMillion()
+        {
+            //value from ProjectEuler.net answer checker
+            int expected = 4613732;
+            int sum = 0;
+            int[] sequence = p2.GetFibonacciSequence(100, 4000000);
+            foreach(int i in sequence)
+            {
+                if(i %2== 0)
+                {
+                    sum += i;
+                }
+            }
+
+            Assert.AreEqual(expected, sum);
+        }
+
+
+        
+        
     }
 }
