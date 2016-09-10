@@ -43,7 +43,7 @@ namespace ProjectEuler.Problems
             return largestPrimeFactor;
         }
 
-        private static long[] GetPrimeFactorsOf(long value)
+        public static long[] GetPrimeFactorsOf(long value)
         {
             HashSet<long> primeFactors = new HashSet<long>();
 
@@ -67,7 +67,7 @@ namespace ProjectEuler.Problems
                         i--;
                     }else
                     {
-                        throw new Exception("Woah");
+                        throw new Exception(String.Format("Woah, value:{0} i:{1} divisable:{2}",value,i,divisable));
                     }
                 }
             }
@@ -75,17 +75,30 @@ namespace ProjectEuler.Problems
             return primeFactors.ToArray<long>();
 
         }
-
-        private static bool IsPrime(long value)
+        /// <summary>
+        /// A prime number is a whole number greater than 1, whose only two whole-number factors are 1 and itself.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsPrime(long value)
         {
             bool prime = true;
-            for(long i =2; i < value; i++)
+            if (value > 1)
             {
-                if (value % i == 0)
+                long maxCheck = value - 1;
+                for (long i = 2; i <= maxCheck; i++)
                 {
-                    prime = false;
-                    break;
+                    if (value % i == 0)
+                    {
+                        prime = false;
+                        break;
+                    }
+
+                    maxCheck = (value + (value % i)) / i;
                 }
+            }else
+            {
+                prime = false;
             }
 
             return prime;
