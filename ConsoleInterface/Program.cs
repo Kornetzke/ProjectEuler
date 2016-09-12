@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectEuler.Problems;
+using System.IO;
+using System.Threading;
 
 namespace ConsoleInterface
 {
@@ -17,30 +19,37 @@ namespace ConsoleInterface
             {
                 Console.WriteLine("Input number to find prime factors");
                 inputString = Console.ReadLine();
-                long number;
+                ulong number;
                 try
                 {
-                    number = Int64.Parse(inputString);
+                    number = UInt64.Parse(inputString);
                 }catch(Exception e)
                 {
                     Console.WriteLine(e.Message);
                     continue;
                 }
 
-                long[] factors = Problem3.GetPrimeFactorsOf(number);
-                long largest = factors.Max();
-                StringBuilder sb = new StringBuilder(String.Format("Prime Factors for Number : {0}", number));
-                sb.AppendLine();
-                foreach(long i in factors)
+                ulong[] factors = Problem3.GetPrimeFactorsOf(number);
+                
+                if(factors.Length > 0)
                 {
-                    sb.Append(i + " ");
+                    Console.WriteLine("Prime factors for : " + number);
+                    ulong largest = 0;
+                    foreach(ulong i in factors)
+                    {
+                        Console.Write(i + " ");
+                        if (i > largest)
+                            largest = i;
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine("Largets prime factor is " + largest);
+                }else
+                {
+                    Console.WriteLine("No prime factors found");
                 }
-                sb.AppendLine();
-                sb.AppendLine("Largest prime is " + largest);
-                Console.WriteLine(sb.ToString());
+
 
             } while (running);
         }
-
     }
 }

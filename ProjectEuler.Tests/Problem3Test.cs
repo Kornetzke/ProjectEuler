@@ -14,47 +14,47 @@ namespace ProjectEuler.Tests
         [ExpectedException(typeof(ArithmeticException))]
         public void FindLargetPrimeFactorOfZero()
         {
-            long actual = Problem3.FindLargestPrimeFactorOf(0);
+            ulong actual = Problem3.FindLargestPrimeFactorOf(0);
             Assert.Fail("Arithmetic Exception not thrown");
         }
         
         [TestMethod]
         public void FindLargestPrimeFactorOfTwo()
         {
-            long actual = Problem3.FindLargestPrimeFactorOf(2);
-            long expected = 2;
+            ulong actual = Problem3.FindLargestPrimeFactorOf(2);
+            ulong expected = 2;
 
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
         public void FindLargestPrimeFactorOfThree()
         {
-            long actual = Problem3.FindLargestPrimeFactorOf(3);
-            long expected = 3;
+            ulong actual = Problem3.FindLargestPrimeFactorOf(3);
+            ulong expected = 3;
 
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
         public void FindLargestPrimeFactorOfFour()
         {
-            long actual = Problem3.FindLargestPrimeFactorOf(4);
-            long expected = 2;
+            ulong actual = Problem3.FindLargestPrimeFactorOf(4);
+            ulong expected = 2;
 
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
         public void FindLargestPrimeFactorOfFive()
         {
-            long actual = Problem3.FindLargestPrimeFactorOf(5);
-            long expected = 5;
+            ulong actual = Problem3.FindLargestPrimeFactorOf(5);
+            ulong expected = 5;
 
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
         public void FindLargestPrimeFactorOfSix()
         {
-            long actual = Problem3.FindLargestPrimeFactorOf(6);
-            long expected = 3;
+            ulong actual = Problem3.FindLargestPrimeFactorOf(6);
+            ulong expected = 3;
 
             Assert.AreEqual(expected, actual);
         }
@@ -62,8 +62,8 @@ namespace ProjectEuler.Tests
         [TestMethod]
         public void FindLargestPrimeFactorOf12()
         {
-            long actual = Problem3.FindLargestPrimeFactorOf(12);
-            long expected = 3;
+            ulong actual = Problem3.FindLargestPrimeFactorOf(12);
+            ulong expected = 3;
 
             Assert.AreEqual(expected, actual);
         }
@@ -71,8 +71,8 @@ namespace ProjectEuler.Tests
         [TestMethod]
         public void FindLargestPrimeFactorOf346896()
         {
-            long actual = Problem3.FindLargestPrimeFactorOf(346896);
-            long expected = 73;
+            ulong actual = Problem3.FindLargestPrimeFactorOf(346896);
+            ulong expected = 73;
 
             Assert.AreEqual(expected, actual);
         }
@@ -80,8 +80,8 @@ namespace ProjectEuler.Tests
         [TestMethod]
         public void FindLargestPrimeFactorOf600851475143()
         {
-            long actual = Problem3.FindLargestPrimeFactorOf(600851475143);
-            long expected = 6857;
+            ulong actual = Problem3.FindLargestPrimeFactorOf(600851475143);
+            ulong expected = 6857;
 
             Assert.AreEqual(expected, actual);
         }
@@ -89,7 +89,7 @@ namespace ProjectEuler.Tests
         public void IsPrimeTest()
         {
             //prime number list from internet
-            int[] primeNumbers = new int[]{
+            ulong[] primeNumbers = new ulong[]{
                 2,3,5,7,11,13,17,19,23,
                 29,31,37,41,43,47,53,59,61,67,
                 71,73,79,83,89,97,101,103,107,109,
@@ -109,7 +109,7 @@ namespace ProjectEuler.Tests
                 941,947,953,967,971,977,983,991,997,
             };
             StringBuilder sb = new StringBuilder();
-            for (int i = 1; i <= 1000; i++)
+            for (ulong i = 1; i <= 1000; i++)
             {
                 bool actual = Problem3.IsPrime(i);
                 bool expected = primeNumbers.Contains(i);

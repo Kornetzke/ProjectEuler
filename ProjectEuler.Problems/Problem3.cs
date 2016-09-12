@@ -14,22 +14,22 @@ namespace ProjectEuler.Problems
     /// </summary>
     public static class Problem3
     {
-        public static long FindLargestPrimeFactorOf(long value)
+        public static ulong FindLargestPrimeFactorOf(ulong value)
         {
             if (value == 0)
                 throw new ArithmeticException("Zero contains no prime factors");
-            long largestPrimeFactor = 0;
+            ulong largestPrimeFactor = 0;
 
             if (IsPrime(value))
                 largestPrimeFactor = value;
             else
             {
 
-                long[] primeFactors = GetPrimeFactorsOf(value);
+                ulong[] primeFactors = GetPrimeFactorsOf(value);
 
                 if (primeFactors.Length != 0)
                 {
-                    foreach (int i in primeFactors)
+                    foreach (ulong i in primeFactors)
                     {
                         if (i > largestPrimeFactor)
                         {
@@ -43,17 +43,17 @@ namespace ProjectEuler.Problems
             return largestPrimeFactor;
         }
 
-        public static long[] GetPrimeFactorsOf(long value)
+        public static ulong[] GetPrimeFactorsOf(ulong value)
         {
-            HashSet<long> primeFactors = new HashSet<long>();
+            HashSet<ulong> primeFactors = new HashSet<ulong>();
 
-            for(long i =2; i <= value; i++)
+            for(ulong i =2; i <= value; i++)
             {
                 
                 bool divisable = value % i == 0;
                 if (divisable)
                 {
-                    if (IsPrime(i))
+                    if (primeFactors.Contains(i) || IsPrime(i))
                     {
                         primeFactors.Add(i);
 
@@ -67,37 +67,43 @@ namespace ProjectEuler.Problems
                         i--;
                     }else
                     {
-                        throw new Exception(String.Format("Woah, value:{0} i:{1} divisable:{2}",value,i,divisable));
+                        throw new Exception(String.Format("Woah we missed some possible division earlier on, value:{0} i:{1} divisable:{2}",value,i,divisable));
                     }
                 }
             }
 
-            return primeFactors.ToArray<long>();
+            return primeFactors.ToArray();
 
         }
         /// <summary>
+        /// Returns True if value is found to be prime, False if value is not found to be prime
+        /// <para></para>
         /// A prime number is a whole number greater than 1, whose only two whole-number factors are 1 and itself.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>
-        public static bool IsPrime(long value)
+        /// <returns>True if value is found to be prime, False if value is not found to be prime</returns>
+        public static bool IsPrime(ulong value)
         {
             bool prime = true;
             if (value > 1)
             {
-                long maxCheck = value - 1;
-                for (long i = 2; i <= maxCheck; i++)
+                //start maximumDenominator at value-1 to cover the case of value = 2 => should return true
+                ulong maximumDenominator = value -1;
+                for (ulong denominator = 2; denominator <= maximumDenominator; denominator++)
                 {
-                    if (value % i == 0)
+                    if (value % denominator == 0)
                     {
                         prime = false;
                         break;
                     }
+                    //divide value by the denominator to find the new value for what the maximum denominator can be
+                    //add 1 to the new value to cover the possibility of remainders being dropped during division
+                    maximumDenominator = (value / denominator) + 1;
 
-                    maxCheck = (value + (value % i)) / i;
                 }
-            }else
+            }else 
             {
+                // value is less than 1, prime set to false
                 prime = false;
             }
 
